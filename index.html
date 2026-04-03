@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StreamVault | Pro Downloader</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <style>
+        body {
+            background: radial-gradient(circle at top left, #1a1a2e, #16213e);
+            min-height: 100vh;
+        }
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body class="text-gray-100 font-sans flex items-center justify-center p-4">
+
+    <div class="glass animate__animated animate__fadeIn p-8 rounded-3xl shadow-2xl w-full max-w-lg">
+        <div class="text-center mb-8">
+            <div class="inline-block p-3 rounded-2xl bg-red-600 shadow-lg shadow-red-500/50 mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
+            </div>
+            <h1 class="text-3xl font-extrabold tracking-tight">Stream<span class="text-red-500">Vault</span></h1>
+            <p class="text-gray-400 text-sm mt-2">Fast, Secure & High Quality Downloads</p>
+        </div>
+
+        <form action="/download" method="POST" id="downloadForm">
+            <div class="space-y-6">
+                <div>
+                    <label class="block text-xs font-semibold text-gray-500 uppercase mb-2 ml-1">Paste Video Link</label>
+                    <input type="text" name="url" required
+                        placeholder="https://youtube.com/watch?v=..."
+                        class="w-full bg-gray-900/50 border border-gray-700 rounded-xl p-4 focus:ring-2 focus:ring-red-500 focus:outline-none transition-all duration-300">
+                </div>
+
+                <div class="flex gap-4">
+                    <label class="flex-1">
+                        <input type="radio" name="format" value="mp4" checked class="hidden peer">
+                        <div class="text-center p-3 rounded-xl border border-gray-700 peer-checked:border-red-500 peer-checked:bg-red-500/10 cursor-pointer transition-all">
+                            🎥 Video (MP4)
+                        </div>
+                    </label>
+                    <label class="flex-1">
+                        <input type="radio" name="format" value="mp3" class="hidden peer">
+                        <div class="text-center p-3 rounded-xl border border-gray-700 peer-checked:border-red-500 peer-checked:bg-red-500/10 cursor-pointer transition-all">
+                            🎵 Audio (MP3)
+                        </div>
+                    </label>
+                </div>
+
+                <button type="submit" id="downloadBtn"
+                    class="w-full bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white font-bold py-4 rounded-xl shadow-lg transform active:scale-95 transition-all duration-200">
+                    Generate Download Link
+                </button>
+            </div>
+        </form>
+
+        <div id="status" class="hidden mt-6 text-center animate__animated animate__fadeIn">
+            <div class="flex items-center justify-center gap-3 text-red-400">
+                <svg class="animate-spin h-5 w-5" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                <span>Processing... Please wait</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('downloadForm');
+        const btn = document.getElementById('downloadBtn');
+        const status = document.getElementById('status');
+
+        form.onsubmit = () => {
+            btn.disabled = true;
+            btn.classList.add('opacity-50', 'cursor-not-allowed');
+            status.classList.remove('hidden');
+        };
+    </script>
+</body>
+</html>
